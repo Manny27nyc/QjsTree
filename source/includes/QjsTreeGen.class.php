@@ -17,6 +17,13 @@
 		protected $strJavaScripts = __JQUERY_EFFECTS__;
 		protected $strStyleSheets = __JQUERY_CSS__;
 		
+		/**
+		 * Converts the given PHP-property value in the textual representation of
+		 * the javascript-property given.
+		 * @param string $strProp PHP-property
+		 * @param string $strKey javascript-property
+		 * @return string
+		 */
 		protected function makeJsProperty($strProp, $strKey) {
 			$objValue = $this->$strProp;
 			if (null === $objValue) {
@@ -29,7 +36,7 @@
 		protected function makeJqOptions() {
 			$strJqOptions = '';
 //			$strJqOptions .= $this->makeJsProperty('ServerMethod1', 'sServerMethod');
-			if ($strJqOptions) $strJqOptions = substr($strJqOptions, 0, -2);
+//			if ($strJqOptions) $strJqOptions = substr($strJqOptions, 0, -2);
 			return $strJqOptions;
 		}
 
@@ -38,7 +45,7 @@
 		}
 
 		public function getJqSetupFunction() {
-			return 'jsTree';
+			return 'jstree';
 		}
 
 		public function GetControlJavaScript() {
