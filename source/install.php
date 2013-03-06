@@ -2,9 +2,9 @@
 
 $objPlugin = new QPlugin();
 $objPlugin->strName = "QjsTree";
-$objPlugin->strDescription = 'tree view/editor control based on jQuery jsTree plugin.';
+$objPlugin->strDescription = 'Tree view/editor control based on jQuery jsTree plugin.';
 $objPlugin->strVersion = "0.1";
-$objPlugin->strPlatformVersion = "2.1";
+$objPlugin->strPlatformVersion = "2.2";
 $objPlugin->strAuthorName = "Oleg Abrosimov";
 $objPlugin->strAuthorEmail = "olegabr [at] yandex [dot] ru";
 
@@ -28,6 +28,10 @@ $components[] = new QPluginIncludedClass("QjsTreeGen", "includes/QjsTreeGen.clas
 $components[] = new QPluginExample("example/jstree.php", "QjsTree: tree view/editor control based on jQuery jsTree plugin");
 $components[] = new QPluginExampleFile("example/jstree.php");
 $components[] = new QPluginExampleFile("example/jstree.tpl.php");
+
+$components[] = new QPluginExample("example/jstree_edit.php", "QjsTree editable: tree view/editor control based on jQuery jsTree plugin");
+$components[] = new QPluginExampleFile("example/jstree_edit.php");
+$components[] = new QPluginExampleFile("example/jstree_edit.tpl.php");
 
 $objPlugin->addComponents($components);
 $objPlugin->install();

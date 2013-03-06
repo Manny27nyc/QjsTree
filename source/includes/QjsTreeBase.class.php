@@ -13,6 +13,7 @@
 	 * @property mixed[] $DataSource The data displayed in the tree. The format is described here: http://www.jstree.com/documentation/json_data
 	 */
 	class QjsTreeBase extends QjsTreeGen {
+		// TODO: support dots and icons flags (http://www.jstree.com/documentation/themes)
 		protected $strTheme;
 		protected $strPlugins;
 		protected $objDataSourceArray;
@@ -35,6 +36,7 @@
 			$strJqOptions .= $this->makeJsProperty('Plugins', 'plugins');
 			$strJqOptions .= $this->makeJsProperty('_DataSourceJs', 'json_data');
 			$strJqOptions .= $this->makeJsProperty('_ThemesJs', 'themes');
+			$strJqOptions .= $this->makeJsProperty('_ContextMenuI18NJs', 'contextmenu');
 			if ($strJqOptions) $strJqOptions = substr($strJqOptions, 0, -2);
 			return $strJqOptions;
 		}
@@ -64,6 +66,59 @@
 					return array(
 						"theme" => $this->strTheme
 						, "url" => __PLUGIN_ASSETS__ . "/QjsTree/jstree-v.pre1.0/themes/" . $this->strTheme . "/style.css"
+					);
+				case "_ContextMenuI18NJs" :
+					return array(
+						"items" => array(
+							"create" => array(
+								"separator_before"	=> false,
+								"separator_after"	=> true,
+								"label"				=> QApplication::Translate("Create"),
+								"action"			=> new QJsClosure("this.create(obj)", array("obj"))
+							)
+							, "rename" => array(
+								"separator_before"	=> false,
+								"separator_after"	=> false,
+								"label"				=> QApplication::Translate("Rename"),
+								"action"			=> new QJsClosure("this.rename(obj)", array("obj"))
+							)
+							, "remove" => array(
+								"separator_before"	=> false,
+								"separator_after"	=> false,
+								"icon"				=> false,
+								"label"				=> QApplication::Translate("Remove"),
+								"action"			=> new QJsClosure("if(this.is_selected(obj)) { this.remove(); } else { this.remove(obj); }", array("obj"))
+							)
+							, "ccp" => array(
+								"separator_before"	=> true,
+								"separator_after"	=> false,
+								"icon"				=> false,
+								"label"				=> QApplication::Translate("Edit"),
+								"action"			=> false,
+								"submenu"			=> array(
+									"cut" => array(
+										"separator_before"	=> false,
+										"separator_after"	=> false,
+										"label"				=> QApplication::Translate("Cut"),
+										"action"			=> new QJsClosure("this.cut(obj)", array("obj"))
+									)
+									, "copy" => array(
+										"separator_before"	=> false,
+										"separator_after"	=> false,
+										"icon"				=> false,
+										"label"				=> QApplication::Translate("Copy"),
+										"action"			=> new QJsClosure("this.copy(obj)", array("obj"))
+									)
+									, "paste" => array(
+										"separator_before"	=> false,
+										"separator_after"	=> false,
+										"icon"				=> false,
+										"label"				=> QApplication::Translate("Paste"),
+										"action"			=> new QJsClosure("this.paste(obj)", array("obj"))
+									)
+								)
+							)
+						)
 					);
 				default:
 					try {
@@ -104,6 +159,15 @@
 						$objExc->IncrementOffset();
 						throw $objExc;
 					}
+					
+				case "_DataJson" :
+					try {
+						$this->objDataSourceArray = json_decode(QType::Cast($mixValue, QType::String), true);
+						break;
+					} catch (QInvalidCastException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
 
 				default:
 					try {
@@ -113,7 +177,7 @@
 						$objExc->IncrementOffset();
 						throw $objExc;
 					}
-				}
+			}
 		}
 
 	}

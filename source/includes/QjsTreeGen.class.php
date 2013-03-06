@@ -49,7 +49,17 @@
 		}
 
 		public function GetControlJavaScript() {
-			return sprintf('jQuery("#%s").%s({%s})', $this->getJqControlId(), $this->getJqSetupFunction(), $this->makeJqOptions());
+			return
+				sprintf('jQuery("#%s").%s({%s})'
+					. '.bind("move_node.jstree", function (e, data) {qcubed.recordControlModification("%s", "_DataJson", JSON.stringify(jQuery("#%s").jstree("get_json", -1)))})'
+					. '.bind("rename.jstree", function (e, data) {qcubed.recordControlModification("%s", "_DataJson", JSON.stringify(jQuery("#%s").jstree("get_json", -1)))})'
+					. '.bind("remove.jstree", function (e, data) {qcubed.recordControlModification("%s", "_DataJson", JSON.stringify(jQuery("#%s").jstree("get_json", -1)))})'
+					. '.bind("create.jstree", function (e, data) {qcubed.recordControlModification("%s", "_DataJson", JSON.stringify(jQuery("#%s").jstree("get_json", -1)))})'
+					, $this->getJqControlId(), $this->getJqSetupFunction(), $this->makeJqOptions()
+					, $this->getJqControlId(), $this->getJqControlId()
+					, $this->getJqControlId(), $this->getJqControlId()
+					, $this->getJqControlId(), $this->getJqControlId()
+					, $this->getJqControlId(), $this->getJqControlId());
 		}
 
 		public function GetEndScript() {

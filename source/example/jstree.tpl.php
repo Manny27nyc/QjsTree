@@ -1,11 +1,14 @@
 <?php require(__DOCROOT__ . __EXAMPLES__ . '/includes/header.inc.php'); ?>
 <?php $this->RenderBegin(); ?>
 
-<div class="instructions">
-	<h1 class="instruction_title">Using QjsTree</h1>
+<div id="instructions">
+	<h1>Using QjsTree</h1>
+	
+	<p>Displaying the data in a tree.</p>
 </div>
-<div style="margin-left: 100px">
-	<?php $this->jsTree->Render(); ?>
+
+<div id="demoZone">
+	<p><?php $this->jsTree->Render(); ?></p>
 </div>
 
 <?php $this->RenderEnd(); ?>
