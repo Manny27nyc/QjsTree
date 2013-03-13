@@ -10,7 +10,17 @@
 
 		protected function Form_Create() {
 			// Define the tree
-			$this->jsTree = new QjsTree($this);
+			$this->jsTree = $this->jsTree_Create($this);
+			
+			$this->btnSave = new QButton($this);
+			$this->btnSave->Text = QApplication::Translate("Save");
+			$this->btnSave->AddAction(new QClickEvent, new QAjaxAction('btnSave_Click'));
+		}
+		
+		protected function jsTree_Create($objParentControl, $strControlId = null) {
+			// Define the tree
+			$this->jsTree = new QjsTree($objParentControl, $strControlId);
+			$this->jsTree->AlwaysCopy = "multitree";
 			$this->jsTree->DataSource = array(
 				array(
 					"data" => "A node"
@@ -24,9 +34,14 @@
 			$this->jsTree->AddPlugin("crrm");
 			$this->jsTree->AddPlugin("contextmenu");
 			
-			$this->btnSave = new QButton($this);
-			$this->btnSave->Text = QApplication::Translate("Save");
-			$this->btnSave->AddAction(new QClickEvent, new QAjaxAction('btnSave_Click'));
+			$this->jsTree->AddAction(new QjsTree_SelectNodeEvent, new QAjaxAction("jsTree_Click"));
+			$this->jsTree->ActionParameter = new QJsClosure('return jQuery.data(ui.rslt.obj[0], "id")');
+			
+			return $this->jsTree;
+		}
+		
+		protected function jsTree_Click($strFormId, $strControlId, $strParameter) {
+			QApplication::DisplayAlert($strParameter);
 		}
 		
 		public function btnSave_Click($strFormId, $strControlId, $strParameter) {
