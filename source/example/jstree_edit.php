@@ -30,9 +30,9 @@
 					"data" => "Long format demo"
 				)
 			);
-			$this->jsTree->AddPlugin("dnd");
-			$this->jsTree->AddPlugin("crrm");
-			$this->jsTree->AddPlugin("contextmenu");
+			$this->jsTree->AddPlugin(QjsTreePlugin::dnd);
+			$this->jsTree->AddPlugin(QjsTreePlugin::crrm);
+			$this->jsTree->AddPlugin(QjsTreePlugin::contextmenu);
 			
 			$this->jsTree->AddAction(new QjsTree_SelectNodeEvent, new QAjaxAction("jsTree_Click"));
 			$this->jsTree->ActionParameter = new QJsClosure('return jQuery.data(ui.rslt.obj[0], "id")');
