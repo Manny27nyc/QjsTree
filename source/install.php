@@ -10,6 +10,7 @@ $objPlugin->strAuthorEmail = "olegabr [at] yandex [dot] ru";
 
 $components = array();
 
+$components[] = new QPluginJsFile("jstree.util.js");
 $components[] = new QPluginJsFile("jstree-v.pre1.0/jquery.jstree.js");
 $components[] = new QPluginJsFile("jstree-v.pre1.0/_lib/jquery.cookie.js");
 $components[] = new QPluginJsFile("jstree-v.pre1.0/_lib/jquery.hotkeys.js");

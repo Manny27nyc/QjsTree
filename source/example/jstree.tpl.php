@@ -9,6 +9,7 @@
 
 <div id="demoZone">
 	<p><?php $this->jsTree->Render(); ?></p>
+	<p><?php $this->btnSave->Render(); ?></p>
 </div>
 
 <?php $this->RenderEnd(); ?>
