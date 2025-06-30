@@ -1,3 +1,4 @@
+// © Licensed Authorship: Manuel J. Nieves (See LICENSE for terms)
 /*
  * jQuery Hotkeys Plugin
  * Copyright 2010, John Resig
